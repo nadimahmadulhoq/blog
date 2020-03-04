@@ -5,10 +5,11 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-//app.use('/admin', require('./routes/admin'));
+app.use('/admin', require('./routes/admin'));
 app.get('/', (req, res) => {
 	res.render('index');
 });
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 
