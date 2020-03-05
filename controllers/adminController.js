@@ -30,9 +30,7 @@ const storePost = (req, res) => {
 }
 
 const editPost = (req, res) => {
-	const id = req.body
-	.id;
-	Post.findOne( {where: {id: id}} )
+	Post.findOne( {where: {id: req.params.id}} )
 	.then(data => {
 			res.render('admin/edit-post', {
 			post: data
@@ -56,7 +54,7 @@ const updatPost = (req, res) => {
 }
 
 const deletePost = (req, res) => {
-	Post.destroy({where:{id:req.params.id}})
+	Post.destroy({where:{id:req.body.id}})
 	.then(() => {
 		res.redirect('/admin/posts');
 	})
