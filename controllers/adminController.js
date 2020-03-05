@@ -1,18 +1,24 @@
 const Post = require('../models/Post');
 
 const dashboard = (req, res) => {
-	res.render('admin/dashboard'); 
+	res.render('admin/dashboard', {
+		path:'/admin/dashboard'
+	}); 
 }
 
 const posts = (req, res) => {
 	Post.findAll().then(posts => {
 	 	res.render('admin/posts', {
-	 	all_post: posts});
+	 	all_post: posts,
+	 	path:'/admin/posts'
+	 });
 	});	
 }
 
 const addPost = (req, res) => {
-	res.render('admin/add-post');
+	res.render('admin/add-post', {
+		path:'/admin/add-post'
+	});
 }
 
 const storePost = (req, res) => {
@@ -33,7 +39,8 @@ const editPost = (req, res) => {
 	Post.findOne( {where: {id: req.params.id}} )
 	.then(data => {
 			res.render('admin/edit-post', {
-			post: data
+			post: data,
+			path:'/admin/edit-post'
 		});
 	})
 	.catch(err => console.log(err));

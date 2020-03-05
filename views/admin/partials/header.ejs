@@ -114,13 +114,13 @@
                 
 
                 
-                  <li  class="has-sub active expand" >
-                    <a class="sidenav-item-link" href="">
+                  <li  class="has-sub expand <%= path === '/admin/dashboard' ? 'active' : '' %>" >
+                    <a class="sidenav-item-link" href="/admin/dashboard">
                       <i class="mdi mdi-view-dashboard-outline"></i>
                       <span class="nav-text">Dashboard</span> 
                     </a>
                   </li>
-                  <li  class="has-sub" >
+                  <li  class="has-sub  <%- path === '/admin/posts' ? 'active' : '' %>" >
                     <a class="sidenav-item-link" href="/admin/posts">
                       <i class="mdi mdi-pencil-box-multiple"></i>
                       <span class="nav-text">Posts</span>
