@@ -1,0 +1,63 @@
+<%- include('partials/header'); -%>
+<div class="content-wrapper">
+<div class="content">							
+	<div class="breadcrumb-wrapper">
+		<h1>All Posts</h1>
+		<a href="/admin/add-post" class="btn btn-primary">Add Post</a>
+	</div>
+
+<div class="row">
+	<div class="col-12">
+		<div class="card card-default">
+			<div class="card-body">
+				<div class="hoverable-data-table">
+					<div class="dataTables_wrapper dt-bootstrap4 no-footer" id="hoverable-data-table_wrapper">
+						<table class="table table-hover nowrap dataTable no-footer" id="hoverable-data-table" role="grid" aria-describedby="hoverable-data-table_info" style="width: 100%;">
+						<thead>
+							<th>Sl no.</th>
+							<th>Title</th>
+							<th>Created At</th>
+							<th>Actions</th>
+						</thead>
+
+						<tbody>	
+							<% if(all_post.length > 0){ %>
+							<% for(let post of all_post){ %>
+							
+							<tr class="odd" role="row">
+								<td><%= post.id %></td>
+								<td><%= post.title %></td>
+								<td><%= post.author %></td>
+								<td>
+									<a href="" class="btn-sm btn-info">Edit</a>
+									<a href="" class="btn-sm btn-danger">Delete</a>
+								</td>								
+							</tr>	
+						<%	} %>
+						<%	} %>
+						    
+
+						 											
+						
+						</tbody>
+					</table><div class="row justify-content-between bottom-information"><div class="dataTables_info" id="hoverable-data-table_info" role="status" aria-live="polite">Showing 1 to 20 of 57 entries</div><div class="dataTables_paginate paging_simple_numbers" id="hoverable-data-table_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="hoverable-data-table_previous"><a tabindex="0" class="page-link" aria-controls="hoverable-data-table" href="#" data-dt-idx="0">Previous</a></li><li class="paginate_button page-item active"><a tabindex="0" class="page-link" aria-controls="hoverable-data-table" href="#" data-dt-idx="1">1</a></li><li class="paginate_button page-item "><a tabindex="0" class="page-link" aria-controls="hoverable-data-table" href="#" data-dt-idx="2">2</a></li><li class="paginate_button page-item "><a tabindex="0" class="page-link" aria-controls="hoverable-data-table" href="#" data-dt-idx="3">3</a></li><li class="paginate_button page-item next" id="hoverable-data-table_next"><a tabindex="0" class="page-link" aria-controls="hoverable-data-table" href="#" data-dt-idx="4">Next</a></li></ul></div></div><div class="clear"></div></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+								
+
+        
+
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+      </div>
+ <%- include('partials/header'); -%>
+<%- include('partials/footer'); -%>
