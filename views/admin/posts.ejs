@@ -29,15 +29,15 @@
 									<td><%= post.title %></td>
 									<td><%= post.author %></td>
 									<td>
-										<form action="admin/edit-post" method="post" class="float-left">
-											<input type="hidden" name="id" value="<%=post.id%>">
-											<input type="submit" value="edit" class="btn-sm btn-primary">
-										</form>
 										
-										<form action="/admin/delete-post" method="post" class="float-left" >
+										<a class="btn-sm btn-primary" href="/admin/edit-post/<%= post.id %>" >Edit</a>
+										
+										
+										<form action="/admin/delete-post" method="post" class="float-left" id="deleteForm" >
 											<input type="hidden" name="id" value="<%=post.id%>">
-											<input type="submit" value="delete" class="btn-sm btn-danger">
 										</form>
+											<a id="delete" href="#" value="delete" class="btn-sm btn-danger" onclick="submitDeleteForm()">Delete</a>
+										
 									</td>								
 								</tr>	
 							<%	}) %>
@@ -68,3 +68,11 @@
       </div>
  <%- include('partials/header'); -%>
 <%- include('partials/footer'); -%>
+
+<script>
+	function submitDeleteForm(){
+
+	document.getElementById('deleteForm').submit();
+	}
+
+</script>
