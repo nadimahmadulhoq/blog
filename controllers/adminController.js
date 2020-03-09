@@ -1,6 +1,6 @@
 const Post = require('../models/Post');
 
-const dashboard = (req, res) => {
+const dashboard = (req, res, next) => {
 	res.render('admin/dashboard', {
 		path:'/admin/dashboard'
 	}); 

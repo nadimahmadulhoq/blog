@@ -8,15 +8,15 @@ const User = db.define('user', {
 		notNull: true,
 		primaryKey: true
 	},
-	title: {
+	name: {
 		type: Sequelize.STRING,
 		notNull: true
 	},
-	description: {
-		type: Sequelize.TEXT,
+	email: {
+		type: Sequelize.STRING,
 		notNull: true
 	},
-	author: {
+	password: {
 		type: Sequelize.STRING,
 		notNull: true
 	}
