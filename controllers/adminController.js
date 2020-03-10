@@ -1,8 +1,10 @@
 const Post = require('../models/Post');
 
 const dashboard = (req, res, next) => {
+	req.toastr.success('Successfully logged in.', "You're in!");
 	res.render('admin/dashboard', {
-		path:'/admin/dashboard'
+		path:'/admin/dashboard',
+		// req: req
 	}); 
 }
 
@@ -22,12 +24,11 @@ const addPost = (req, res) => {
 }
 
 const storePost = (req, res) => {
-	const title = req.body.title;
-	const description = req.body.description;
-	const author = req.body.author;
+	const {title, description, author} = req.body;
 
 	Post.create({ title, description, author })
 	.then(post => {
+		req.toastr.success('Posted Successfully!', 'Your post.');
 		console.log('done.');
 		res.redirect('/admin/posts');
 	})

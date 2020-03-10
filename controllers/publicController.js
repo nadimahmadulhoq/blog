@@ -1,18 +1,31 @@
 const passport = require('passport');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const {validationResult} = require('express-validator');
 
 const home = (req, res) => {
 	res.render('index');
 }
 
 const registerForm = (req, res) => {
-	res.render('registration');
+	res.render('registration', {
+		email: '',
+		name: ''
+	});
 }
 
 const register = (req, res) => {
-	let {name, email, password, confirm_password} = req.body;
-
+	let { name, email, password, confirm_password } = req.body;
+	const errors = validationResult(req);
+	console.log(errors.array());
+	if(!errors.isEmpty()){
+		return res.render('registration', {
+			errors: errors.array(),
+			name,
+			email
+		});
+	}
+	
 	bcrypt.hash(password, 10, ((err, hash) => {
 			if (err) throw err;
 			password = hash;
