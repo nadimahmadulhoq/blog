@@ -44,10 +44,32 @@ const loginForm = (req, res) => {
 }
 
 const login = (req, res, next) => {
-	passport.authenticate('local', {
-	    successRedirect: '/admin/dashboard',
-	    failureRedirect: '/login'
-	  })(req, res, next);
+	const {email, password} = req.body;
+	let errors = validationResult(req);
+	console.log(errors.array());
+	if (!errors.isEmpty()) {
+		return res.render('login', {
+			errors: errors.array()
+		});
+	}
+
+	User.findOne({where: {email: email}})
+		.then(user => {
+			if (user) {
+				const isMatched = bcrypt.compareSync(password, user.password);
+				if (!isMatched) {
+					
+					return res.render('login', {
+						errors: [{'msg': 'Invalid passoword!'}]
+					});
+				}
+			}else{
+				return res.render('login', {
+					errors: [{'msg': 'E-mail not registerd yet!'}]
+				});
+			}
+		})
+		.catch();
 }
 
 const logout = (req, res) => {

@@ -30,7 +30,10 @@ router.post('/register', [
 ], publicController.register);
 
 router.get('/login', publicController.loginForm);
-router.post('/login', publicController.login);
+router.post('/login', [
+        check('email').isEmail().withMessage('Enter valid email.'),
+        check('password').isLength({min: 1}).withMessage('Password is reqired.')
+    ], publicController.login);
 router.get('/logout', publicController.logout);
 
 module.exports = router;
