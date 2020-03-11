@@ -13,5 +13,22 @@ module.exports = {
 		}
 
 		res.redirect('/admin/dashboard');
+	},
+
+	checkSession: (req, res, next) => {
+		if (req.session.user) {
+			next();
+		}
+		res.redirect('/login')
+	},
+
+	checkSessionIF: (req, res, next) => {
+		if (!req.session.user) {
+			res.redirect('/login');
+		}
+
+		next();
 	}
+
+
 }

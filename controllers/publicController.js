@@ -60,12 +60,17 @@ const login = (req, res, next) => {
 				if (!isMatched) {
 					
 					return res.render('login', {
-						errors: [{'msg': 'Invalid passoword!'}]
+						errors: [{'msg': 'Invalid passoword!'}],
+						email: email
 					});
+				}else{
+					req.session.user = user;
+					return res.redirect('/admin/dashboard');
 				}
 			}else{
 				return res.render('login', {
-					errors: [{'msg': 'E-mail not registerd yet!'}]
+					errors: [{'msg': 'E-mail not registerd yet!'}],
+					email: email
 				});
 			}
 		})
@@ -73,7 +78,7 @@ const login = (req, res, next) => {
 }
 
 const logout = (req, res) => {
-	req.logout();
+	req.session.destroy;
 	res.redirect('/login');
 }
 

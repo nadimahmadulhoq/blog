@@ -10,8 +10,7 @@ router.get('/', publicController.home );
 
 router.get('/register', publicController.registerForm);
 router.post('/register', [
-    check('name').isAlphanumeric().withMessage('Your name should contain only characters and numbers')
-    .isLength({min: 6}).withMessage('Your name should have at least 6 characters.'),
+    check('name').isLength({min: 6}).withMessage('Your name should have at least 6 characters.'),
     check('email').isEmail().withMessage('Please enter a valid e-mail.').custom((value, { req }) => {
         return User.findOne({where: {email: value}})
             .then(user => {

@@ -1,10 +1,15 @@
 const Post = require('../models/Post');
 
 const dashboard = (req, res, next) => {
-	req.toastr.success('Successfully logged in.', "You're in!");
+	console.log(req.session.user);
+	if(!req.session.user){
+	console.log(req.session.user);
+		
+		return res.redirect('/login');
+	}
+
 	res.render('admin/dashboard', {
-		path:'/admin/dashboard',
-		// req: req
+		path:'/admin/dashboard'
 	}); 
 }
 

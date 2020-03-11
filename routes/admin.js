@@ -3,6 +3,7 @@ const router = express.Router();
 const adminController = require('../Controllers/adminController');
 const auth = require('../config/auth');
 
+
 router.get('/dashboard', adminController.dashboard);
 router.get('/posts', adminController.posts);
 router.get('/add-post', adminController.addPost);
