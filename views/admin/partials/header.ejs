@@ -124,14 +124,24 @@
                     <a class="sidenav-item-link" href="/admin/posts">
                       <i class="mdi mdi-pencil-box-multiple"></i>
                       <span class="nav-text">Posts</span>
+                    </a>                    
+                  </li>
+                  <li class="has-sub  <%- path === '/admin/tags' ? 'active' : '' %>">
+                    <a class="sidenav-item-link" href="">
+                      <i class="mdi mdi-pinwheel-outline"></i>
+                      <span class="nav-text">Tags</span>
+                    </a>                  
+                  </li>
+                  <li class="has-sub  <%- path === '/admin/categories' ? 'active' : '' %>">
+                    <a class="sidenav-item-link" href="">
+                      <i class="mdi mdi-fan"></i>
+                      <span class="nav-text">Categories</span>
                     </a>
-                    
                   </li>
                   <li  class="has-sub" >
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#components"
-                      aria-expanded="false" aria-controls="components">
-                      <i class="mdi mdi-folder-multiple-outline"></i>
-                      <span class="nav-text">Components</span>
+                    <a class="sidenav-item-link" href="/logout">
+                      <i class="mdi mdi-undo-variant"></i>
+                      <span class="nav-text">Logout</span>
                     </a>
                   </li>
                   
