@@ -16,19 +16,21 @@ module.exports = {
 	},
 
 	checkSession: (req, res, next) => {
-		if (req.session.user) {
-			next();
+		if ((req.session.user == undefined) || !req.session.user) {
+			return res.redirect('/login');
 		}
-		res.redirect('/login')
+
+		console.log(req.session.user);
+		next();
 	},
 
-	checkSessionIF: (req, res, next) => {
-		if (!req.session.user) {
-			res.redirect('/login');
-		}
+	// checkSessionIF: (req, res, next) => {
+	// 	if (!req.session.user) {
+	// 		res.redirect('/login');
+	// 	}
 
-		next();
-	}
+	// 	next();
+	// }
 
 
 }

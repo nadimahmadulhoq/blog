@@ -32,7 +32,7 @@ const register = (req, res) => {
 			console.log(password);
 			User.create({name, email, password})
 			.then(user => {
-				
+				req.flash('success_msg', 'Registered Successfull, please login.');
 				res.redirect('/login')
 			});
 		})
@@ -40,6 +40,11 @@ const register = (req, res) => {
 }
 
 const loginForm = (req, res) => {
+	if (req.session.user) {
+		// console.log(req.session.user);
+		res.redirect('/admin/dashboard');
+	}
+	
 	res.render('login');
 }
 

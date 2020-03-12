@@ -25,11 +25,12 @@ app.use(session({
 app.use(flash());
 app.use(toastr());
 
-app.use(function (req, res, next)
-{
-    res.locals.toasts = req.toastr.render();
-    next();
-});
+app.use(function (req, res, next) {
+	
+	res.locals.success_msg = req.flash('success_msg');
+	res.locals.errors = req.flash('errors');
+	next();
+})
 
 // Init Passport
 app.use(passport.initialize());
@@ -55,7 +56,7 @@ app.use(express.static(__dirname+ '/public'));
 
 db.sync()
 .then(restult => {
-	console.log(restult)
+	// console.log(restult)
 	app.listen(3000, console.log('server running.'));
 })
 .catch(err => console.log(err));
