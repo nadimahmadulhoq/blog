@@ -50,6 +50,14 @@ module.exports = {
 
     validateTag: (req, res, next) => {
        return body('name').isLength({min: 3}).withMessage('Tag title required.');
+    },
+
+    validatePost: (req, res, next) => {
+        return [
+            body('title').isLength({min: 8}).withMessage('Title is required.'),
+            body('description').isLength({ min: 8 }).withMessage('Description is required.'),
+            body('author').isLength({ min: 8 }).withMessage('Author is required.'),
+        ];
     }
 
 };

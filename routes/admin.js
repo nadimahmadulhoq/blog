@@ -10,7 +10,7 @@ router.get('/dashboard', auth.checkSession, adminController.dashboard);
 //posts routes
 router.get('/posts', auth.checkSession, adminController.posts);
 router.get('/add-post', auth.checkSession, adminController.addPost);
-router.post('/store-post', auth.checkSession, adminController.storePost);
+router.post('/store-post', auth.checkSession, validate.validatePost(),validate.validate, adminController.storePost);
 router.get('/edit-post/:id', auth.checkSession, adminController.editPost);
 router.post('/update-post', auth.checkSession, adminController.updatPost);
 router.post('/delete-post', auth.checkSession, adminController.deletePost);

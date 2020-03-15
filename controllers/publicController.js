@@ -16,20 +16,11 @@ const registerForm = (req, res) => {
 
 const register = (req, res) => {
 	let { name, email, password, confirm_password } = req.body;
-	const errors = validationResult(req);
-	console.log(errors.array());
-	if(!errors.isEmpty()){
-		return res.render('registration', {
-			errors: errors.array(),
-			name,
-			email
-		});
-	}
 	
 	bcrypt.hash(password, 10, ((err, hash) => {
 			if (err) throw err;
 			password = hash;
-			console.log(password);
+
 			User.create({name, email, password})
 			.then(user => {
 				req.flash('success_msg', 'Registered Successfull, please login.');
@@ -41,22 +32,16 @@ const register = (req, res) => {
 
 const loginForm = (req, res) => {
 	if (req.session.user) {
-		// console.log(req.session.user);
 		res.redirect('/admin/dashboard');
 	}
 	
-	res.render('login');
+	res.render('login', {
+		email: ''
+	});
 }
 
 const login = (req, res, next) => {
 	const {email, password} = req.body;
-	let errors = validationResult(req);
-	console.log(errors.array());
-	if (!errors.isEmpty()) {
-		return res.render('login', {
-			errors: errors.array()
-		});
-	}
 
 	User.findOne({where: {email: email}})
 		.then(user => {
@@ -79,7 +64,9 @@ const login = (req, res, next) => {
 				});
 			}
 		})
-		.catch();
+		.catch(err => {
+			console.log(err);
+		});
 }
 
 const logout = (req, res) => {

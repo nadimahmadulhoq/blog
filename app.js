@@ -10,11 +10,6 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const toastr = require('express-toastr');
 
-//models
-const User = require('./models/User');
-const Post = require('./models/Post');
-
-
 const app = express();
 
 require('./config/passport')(passport);
