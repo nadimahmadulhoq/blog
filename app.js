@@ -4,6 +4,7 @@ const db = require('./config/db');
 const path = require('path');
 const passport = require('passport');
 const validator = require('express-validator');
+const multer = require('multer');
 
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -27,7 +28,7 @@ app.use(toastr());
 app.use(function (req, res, next) {
 	
 	res.locals.success_msg = req.flash('success_msg');
-	res.locals.errors = req.flash('errors');
+	res.locals.error_msg = req.flash('error_msg');
 	next();
 })
 
@@ -35,8 +36,29 @@ app.use(function (req, res, next) {
 app.use(passport.initialize());
 app.use(passport.session());
 
+const fileStorage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, 'images');
+	},
+	filename: (req, file, cb) => {
+		cb(null, new Date().toISOString().replace(/:/g, '-')
+									+ '-' + file.originalname);
+	}
+});
+
+const fileFilter = (req, file, cb) => {
+	if (file.mimetype === 'image/png' ||
+		 file.mimetype === 'image/jpg' ||
+		 file.mimetype === 'image/jpeg')
+	{
+		cb(null, true);
+	}else{
+		cb(null, false);
+	}
+};
 // Init bodyParser
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('image'));
 
 // Set View Engine
 app.set('view engine', 'ejs');

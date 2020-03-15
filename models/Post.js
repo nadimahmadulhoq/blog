@@ -12,6 +12,10 @@ const Post = db.define('post', {
 		type: Sequelize.STRING,
 		notNull: true
 	},
+	imageUrl: {
+		type: Sequelize.STRING,
+		notNull: true
+	},
 	description: {
 		type: Sequelize.TEXT,
 		notNull: true

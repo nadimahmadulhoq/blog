@@ -56,7 +56,7 @@ module.exports = {
         return [
             body('title').isLength({min: 8}).withMessage('Title is required.'),
             body('description').isLength({ min: 8 }).withMessage('Description is required.'),
-            body('author').isLength({ min: 8 }).withMessage('Author is required.'),
+            body('author').isLength({ min: 2 }).withMessage('Author is required.'),
         ];
     }
 

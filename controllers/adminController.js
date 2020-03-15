@@ -30,8 +30,16 @@ const addPost = (req, res) => {
 
 const storePost = (req, res) => {
 	const {title, description, author} = req.body;
+	const image = req.file;
 
-	Post.create({ title, description, author })
+	if(!image){
+		req.flash('error_msg', 'File should be and imgae.');
+		return res.redirect('/admin/add-post');
+	}
+
+	const imageUrl = image.path;
+
+	Post.create({ title, imageUrl, description, author })
 	.then(post => {
 		req.toastr.success('Posted Successfully!', 'Your post.');
 		console.log('done.');
