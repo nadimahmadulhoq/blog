@@ -12,9 +12,6 @@ module.exports = {
         if (errors.isEmpty()) {
             return next()
         }
-        const extractedErrors = []
-        errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
-        // console.log("Erros",extractedErrors);
         
         req.flash('errors', errors.array());
         return res.redirect(backURL);
@@ -23,7 +20,7 @@ module.exports = {
     validateLogin: (req, res, next) => {
         return [
             body('email').isEmail().withMessage('Enter valid email.'),
-            body('password').isLength({ min: 10 }).withMessage('Password is reqired.')
+            body('password').isLength({ min: 1 }).withMessage('Password is reqired.')
         ];
     },
 
@@ -49,5 +46,10 @@ module.exports = {
                return true;
            })
        ];
+    },
+
+    validateTag: (req, res, next) => {
+       return body('name').isLength({min: 3}).withMessage('Tag title required.');
     }
+
 };

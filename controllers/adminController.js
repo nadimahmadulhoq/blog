@@ -15,7 +15,7 @@ const dashboard = (req, res, next) => {
 
 const posts = (req, res) => {
 	Post.findAll().then(posts => {
-	 	res.render('admin/posts', {
+	 	res.render('admin/post/posts', {
 	 	all_post: posts,
 	 	path:'/admin/posts'
 	 });
@@ -23,7 +23,7 @@ const posts = (req, res) => {
 }
 
 const addPost = (req, res) => {
-	res.render('admin/add-post', {
+	res.render('admin/post/add-post', {
 		path:'/admin/add-post'
 	});
 }
@@ -44,7 +44,7 @@ const storePost = (req, res) => {
 const editPost = (req, res) => {
 	Post.findOne( {where: {id: req.params.id}} )
 	.then(data => {
-			res.render('admin/edit-post', {
+			res.render('admin/post/edit-post', {
 			post: data,
 			path:'/admin/edit-post'
 		});

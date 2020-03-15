@@ -10,6 +10,10 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const toastr = require('express-toastr');
 
+//models
+const User = require('./models/User');
+const Post = require('./models/Post');
+
 
 const app = express();
 
@@ -45,7 +49,6 @@ app.set('view engine', 'ejs');
 // Set Route Path
 app.use('/', require('./routes/public'));
 app.use('/admin', require('./routes/admin'));
-
 
 db.authenticate()
 .then(() => console.log('db connected.'))

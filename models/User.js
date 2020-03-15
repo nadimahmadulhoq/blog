@@ -23,17 +23,18 @@ const User = db.define('user', {
 	}
 	
 }, {
-	hooks: {
-		beforeCreate: (user) => {
-			user.password = bcrypt.hashSync(user.password, 10);
-		}
-	},
 	instanceMethods: {
 		validPassword: function (password) {
 			return bcrypt.compareSync(password, this.password);
 		}
 	}
 });
+
+	User.associate = models => {
+		User.hasMany(models.Post, { foreignKey: 'userId' });
+		User.hasMany(models.Tag, { foreignKey: 'userId'});
+		User.hasMany(models.Category, { foreignKey: 'userId'});
+	}
 
 module.exports = User;
 
