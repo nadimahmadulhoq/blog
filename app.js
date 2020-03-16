@@ -1,3 +1,4 @@
+//importing dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./config/db');
@@ -10,6 +11,14 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const toastr = require('express-toastr');
+
+//importing models
+const User = require('./models/User');
+const Post = require('./models/Post');
+const Tag = require('./models/Tag');
+const Category = require('./models/Category');
+const CategoryPost = require('./models/CategoryPost');
+const PostTag = require('./models/PostTag');
 
 const app = express();
 
@@ -68,16 +77,18 @@ app.set('view engine', 'ejs');
 app.use('/', require('./routes/public'));
 app.use('/admin', require('./routes/admin'));
 
-db.authenticate()
-.then(() => console.log('db connected.'))
-.catch((err) => console.log(err));
-
-
 app.use(express.static(__dirname+ '/public'));
 
-db.sync({
-	force: true
-})
+//creating relations 
+User.hasMany(Post);
+Post.belongsTo(User);
+User.hasMany(Tag);
+User.hasMany(Category);
+Post.belongsToMany(Category, {through: CategoryPost});
+Post.belongsToMany(Tag, { through: PostTag });
+
+//syncing db
+db.sync()
 .then(restult => {
 	// console.log(restult)
 	app.listen(3000, console.log('server running.'));
