@@ -2,6 +2,8 @@ const Sequelize = require('sequelize');
 var bcrypt = require('bcrypt');
 const db = require('../config/db');
 
+const Post = require('./Post');
+
 const User = db.define('user', {
 	id: {
 		type: Sequelize.INTEGER,
@@ -22,19 +24,12 @@ const User = db.define('user', {
 		notNull: true
 	}
 	
-}, {
-	instanceMethods: {
-		validPassword: function (password) {
-			return bcrypt.compareSync(password, this.password);
-		}
-	}
 });
 
-	User.associate = models => {
-		User.hasMany(models.Post, { foreignKey: 'userId' });
-		User.hasMany(models.Tag, { foreignKey: 'userId'});
-		User.hasMany(models.Category, { foreignKey: 'userId'});
-	}
+// User.hasMany(Post, { foreignKey: 'userId' });
+// User.associate = models => {
+// 	User.hasMany(Post, { foreignKey: 'userId' });
+// }
 
 module.exports = User;
 

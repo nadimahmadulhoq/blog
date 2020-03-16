@@ -10,6 +10,7 @@
             <div class="col-12">
                 <div class="card card-default">
                     <div class="card-body">
+                        <%- include('../../fpartials/message'); %>
                         <div class="hoverable-data-table">
                             <div class="dataTables_wrapper dt-bootstrap4 no-footer" id="hoverable-data-table_wrapper">
                                 <table class="table table-hover nowrap dataTable no-footer" id="hoverable-data-table"
@@ -32,11 +33,10 @@
                                                     href="/admin/edit-tag/<%= tag.id %>">Edit</a>
 
 
-                                                <form action="/admin/delete-tag" method="tag" class="float-left"
-                                                    id="deleteForm">
-                                                    <input type="hidden" name="id" value="<%=tag.id%>">
-                                                </form>
-                                                <a id="delete" href="#" value="delete" class="btn-sm btn-danger"
+                                                <!-- <form action="/admin/delete-tag/" method="post" class="float-left" id="deleteForm">
+                                                    <input type="hidden" name="id" value="">
+                                                </form> -->
+                                                <a id="delete" href="/admin/delete-tag/<%= tag.id %>" value="delete" class="btn-sm btn-danger"
                                                     onclick="submitDeleteForm()">Delete</a>
 
                                             </td>

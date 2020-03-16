@@ -19,8 +19,7 @@ module.exports = {
 		if ((req.session.user == undefined) || !req.session.user) {
 			return res.redirect('/login');
 		}
-
-		console.log(req.session.user);
+		
 		next();
 	},
 

@@ -41,8 +41,7 @@ const storePost = (req, res) => {
 
 	Post.create({ title, imageUrl, description, author })
 	.then(post => {
-		req.toastr.success('Posted Successfully!', 'Your post.');
-		console.log('done.');
+		req.flash('success_msg', 'Post created successfully.');
 		res.redirect('/admin/posts');
 	})
 	.catch(err => console.log(err));
@@ -63,20 +62,41 @@ const editPost = (req, res) => {
 
 const updatPost = (req, res) => {
 	const title = req.body.title;
+	const file = req.file;
 	const description = req.body.description;
 	const author = req.body.author;
+	
+
+	if (file){
+		const image = file.path;
+		Post.update({ title, description, author }, { where: { id: req.body.id } })
+			.then(() => {
+				req.flash('success_msg', 'Post updated successfully.');
+				res.redirect('/admin/posts')
+			})
+			.catch(err => console.log(err));
+	}else{
+		Post.update({ title, description, author }, { where: { id: req.body.id } })
+			.then(() => {
+				req.flash('success_msg', 'Post updated successfully.');
+				res.redirect('/admin/posts')
+			})
+			.catch(err => console.log(err));
+	}
 
 	Post.update({title, description, author}, {where:{id:req.body.id}})
 	.then(() => {
+		req.flash('success_msg', 'Post updated successfully.');
 		res.redirect('/admin/posts')
-		.catch(err => console.log(err));
-	});
+	})
+	.catch(err => console.log(err));
 
 }
 
 const deletePost = (req, res) => {
 	Post.destroy({where:{id:req.body.id}})
 	.then(() => {
+		req.flash('success_msg', 'Post deleted successfully.');
 		res.redirect('/admin/posts');
 	})
 	.catch(err => console.log(err));

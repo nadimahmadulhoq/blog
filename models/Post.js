@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 
+const User = require('./User');
+
 const Post = db.define('post', {
 	id: {
 		type: Sequelize.INTEGER,
@@ -8,6 +10,7 @@ const Post = db.define('post', {
 		notNull: true,
 		primaryKey: true
 	},
+	
 	title: {
 		type: Sequelize.STRING,
 		notNull: true
@@ -24,8 +27,12 @@ const Post = db.define('post', {
 		type: Sequelize.STRING,
 		notNull: true
 	}
-	
 });
+
+// Post.associate = (models) => {
+// 	Post.belongsTo(models.User);
+// 	User.hasMany(models.Post);
+// }
 
 module.exports = Post;
 

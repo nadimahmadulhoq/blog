@@ -21,4 +21,9 @@ router.get('/tags', auth.checkSession, tagsController.tags);
 router.get('/add-tag', auth.checkSession, tagsController.addTag);
 router.post('/store-tag', auth.checkSession, validate.validateTag(), validate.validate, tagsController.storeTag);
 
+router.get('/edit-tag/:id',  auth.checkSession, tagsController.editForm);
+router.post('/update-tag', auth.checkSession, validate.validateTag(), validate.validate,  tagsController.updatTag);
+
+router.get('/delete-tag/:id', auth.checkSession, tagsController.deleteTag);
+
 module.exports = router;

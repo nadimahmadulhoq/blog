@@ -42,7 +42,7 @@ const loginForm = (req, res) => {
 
 const login = (req, res, next) => {
 	const {email, password} = req.body;
-
+	
 	User.findOne({where: {email: email}})
 		.then(user => {
 			if (user) {
@@ -70,8 +70,8 @@ const login = (req, res, next) => {
 }
 
 const logout = (req, res) => {
-	req.session.destroy;
-	res.redirect('/login');
+	req.session.destroy();
+	return res.redirect('/login');
 }
 
 
