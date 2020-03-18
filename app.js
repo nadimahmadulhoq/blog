@@ -46,6 +46,7 @@ app.use(function (req, res, next) {
 app.use(passport.initialize());
 app.use(passport.session());
 
+//configuring multer storage for images
 const fileStorage = multer.diskStorage({
 	destination: (req, file, cb) => {
 		cb(null, 'images');
@@ -56,6 +57,7 @@ const fileStorage = multer.diskStorage({
 	}
 });
 
+//filtering images
 const fileFilter = (req, file, cb) => {
 	if (file.mimetype === 'image/png' ||
 		 file.mimetype === 'image/jpg' ||
@@ -66,6 +68,7 @@ const fileFilter = (req, file, cb) => {
 		cb(null, false);
 	}
 };
+
 // Init bodyParser
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('image'));
@@ -77,11 +80,11 @@ app.set('view engine', 'ejs');
 app.use('/', require('./routes/public'));
 app.use('/admin', require('./routes/admin'));
 
+//serve static files
 app.use(express.static(__dirname+ '/public'));
 
 //creating relations 
-User.hasMany(Post);
-Post.belongsTo(User);
+User.hasMany(Post, { constraints: true, onDelete: 'CASCADE' });
 User.hasMany(Tag);
 User.hasMany(Category);
 Post.belongsToMany(Category, {through: CategoryPost});

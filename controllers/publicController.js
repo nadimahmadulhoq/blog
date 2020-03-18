@@ -8,6 +8,10 @@ const home = (req, res) => {
 }
 
 const registerForm = (req, res) => {
+	if (req.session.user) {
+		res.redirect('/admin/dashboard');
+	}
+	
 	res.render('registration', {
 		email: '',
 		name: ''
@@ -55,6 +59,9 @@ const login = (req, res, next) => {
 					});
 				}else{
 					req.session.user = user;
+					req.user = user;
+					console.log("session: ", req.session.user.email);
+					console.log("logged in user: ", req.user.name);
 					return res.redirect('/admin/dashboard');
 				}
 			}else{
